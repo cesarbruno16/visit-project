@@ -27,3 +27,9 @@ Both of them can filter a list of hotels, with filters like: range of price per 
 ### Ordinary User
 * admin@visit-project.com
 * 123456
+
+### Heroku
+It's up at Heroku, just click below and use the above credentials
+
+
+[visit-project.herokuapp.com/](https://visit-project.herokuapp.com/)
