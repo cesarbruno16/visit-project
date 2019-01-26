@@ -1,0 +1,73 @@
+<div class="row">
+	<!-- FILTERS -->
+	<aside class="col-md-3">
+		<form class="form-header" action="<%= root_path %>" method="GET">
+			<div class="form-group">
+                <label class="form-control-label">Quantity</label>
+                <%= select_tag(:quantity, options_for_select(1..100, params[:quantity]) , class: "form-control" )%>
+            </div>
+			<div class="form-group">
+                <label class="form-control-label">Facilities</label>
+                <%= select_tag(:select_facilities, options_for_select(@facilities,params[:select_facilities]), {multiple: true, class: "form-control"})%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">Country</label>
+                <%= select_tag(:select_coutry, options_for_select(@countries, params[:select_coutry]), {include_blank: true, class: "form-control"} )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">State</label>
+                <%= select_tag(:select_state, options_for_select([], params[:select_state]), {class: "form-control"} )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">City</label>
+                <%= select_tag(:select_city, options_for_select([], params[:select_city]), {class: "form-control"} )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">Min Price</label>
+                <%= number_field_tag(:min_price, params[:min_price], class: "form-control" )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">Max Price</label>
+                <%= number_field_tag(:max_price, params[:max_price], class: "form-control" )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">Name</label>
+                <%= text_field_tag(:text, params[:text], class: "form-control" )%>
+            </div>
+
+            <div class="form-group">
+            	<input type="submit" name="submit" class="form-control btn btn-success">
+            </div>
+		</form>
+	</aside>
+
+	<!-- RESULTS -->
+	<div class="col-md-9">
+		<% unless @hotels.empty? %>
+			<table class="table table-bordered">
+			    <thead>
+			      	<tr>
+			        	<th>Name</th>
+			        	<th>Facilities</th>
+			        	<th>City</th>
+			        	<th>Individual Price</th>
+			        	<th>Total Price</th>
+			      	</tr>
+			    </thead>
+			    <tbody>
+			    	<% @hotels.each do |hotel| %>
+				      	<tr>
+				        	<td><%= hotel.name %></td>
+				        	<td><%= hotel.facilities.map{|f| f.name}.to_sentence%></td>
+				        	<td><%= hotel.city %></td>
+				        	<td><%= number_to_currency(hotel.price) %></td>
+				        	<td><b><%= number_to_currency(hotel.price * params[:quantity].to_f) %></b></td>
+				      	</tr>
+			      	<% end %>
+			    </tbody>
+			 </table>
+		<% else %>
+			<h1>No Hotel Found :(</h1>
+		<% end %>
+	</div>	
+</div>

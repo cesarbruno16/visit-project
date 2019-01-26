@@ -1,0 +1,7 @@
+rails g model User name:string role:integer
+
+rails g model Hotel name:string price:float country:string state:string city:string address:string user:belongs_to
+
+rails g model Facility name:string description:string user:belongs_to
+
+rails g model FacilityHotel hotel:belongs_to facility:belongs_to

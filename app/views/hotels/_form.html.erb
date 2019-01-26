@@ -1,0 +1,58 @@
+<%= form_for hotel, url: (hotel.id.nil? ? hotels_path : hotel_path(hotel.id)), method: (hotel.id.nil? ? :post : :put) do |form| %>
+    <% if hotel.errors.any? %>
+    <div id="error_explanation">
+        <h2><%= pluralize(hotel.errors.count, "error") %>:</h2>
+
+        <ul>
+            <% hotel.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
+
+    <div class="row">
+        <div class="col-md-12">            
+            <div class="form-group">
+                <label class="form-control-label">Name</label>
+                <%= form.text_field :name, class: "form-control", placeholder: "Name", required: true %>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label">Individual Price</label>
+                <%= form.number_field :price, class: "form-control", placeholder: "Price", required: true %>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label">Country</label>
+                <%= select_tag(:select_coutry, options_for_select(@countries), {class: "form-control", required: true} )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">State</label>
+                <%= select_tag(:select_state, options_for_select([]), {class: "form-control", required: true} )%>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">City</label>
+                <%= select_tag(:select_city, options_for_select([]), {class: "form-control", required: true} )%>
+            </div>
+
+            <div class="form-group">
+                <label class="form-control-label">Address</label>
+                <%= form.text_field :address, class: "form-control", placeholder: "Address", required: true %>
+            </div>
+            
+
+            <div class="form-group">
+                <label class="form-control-label">Facilities</label>
+                <%= form.select(:facilities, @facilities, {},{multiple: true, class: "form-control", required: true} )%>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="form-group">
+                <%= form.submit "Submit", class: "btn btn-lg btn-info btn-block" %>
+            </div>
+        </div>
+    </div>
+
+<% end %>
